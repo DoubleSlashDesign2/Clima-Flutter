@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LocationScreen extends StatefulWidget {
   @override
@@ -7,6 +8,35 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+
+String lat;
+String longg;
+
+
+void getCurrentLocation() async {
+    Position position;
+
+  try{
+    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    lat = position.latitude.toString();
+    longg = position.longitude.toString();
+  }
+  catch(e)
+  {
+    print(e);
+  }
+}
+
+void getLocation() async {
+  
+
+  // position ? null
+  // print(position);
+  
+
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
