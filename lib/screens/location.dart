@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
+
 class Location{
 
 double lat;
@@ -13,14 +14,15 @@ Future<void> getCurrentLocation() async {
     lat = position.latitude;
     longg = position.longitude;
     //print(position);
+    print(lat);
+    print(longg);
   }
   catch(e)
   {
-    print('Error getting location');
+    //PlatformException PERMISSION_DENIED Access to location data denied
+    //PlatformException PERMISSION_DISABLED Location data is not available on device
+    print('There was an Error getting location');
     print(e);
   }
 }
-
-
-
 }
