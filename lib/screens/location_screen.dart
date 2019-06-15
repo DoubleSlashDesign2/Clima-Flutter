@@ -1,41 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 
 class LocationScreen extends StatefulWidget {
+  //-
+  final locationWeather;
+  LocationScreen({this.locationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  // String lat;
+  // String longg;
 
-String lat;
-String longg;
+  // void getCurrentLocation() async {
+  //   Position position;
 
+  //   try {
+  //     position = await Geolocator()
+  //         .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+  //     lat = position.latitude.toString();
+  //     longg = position.longitude.toString();
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-void getCurrentLocation() async {
-    Position position;
+  int temp;
+  var condition;
+  var city;
 
-  try{
-    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    lat = position.latitude.toString();
-    longg = position.longitude.toString();
+  @override
+  void initState() {
+    super.initState();
+    // print('initState');
+    updateUI(widget.locationWeather);
   }
-  catch(e)
-  {
-    print(e);
+
+  void updateUI(dynamic weatherData) {
+    double ttemp = weatherData['main']['temp'];
+    condition = weatherData['weather'][0]['id'];
+    city = weatherData['name'];
+    temp = ttemp.toInt();
+    print(temp);
+    print(city);
   }
-}
-
-void getLocation() async {
-  
-
-  // position ? null
-  // print(position);
-  
-
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +90,7 @@ void getLocation() async {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temp°',
                       style: kTempTextStyle,
                     ),
                     Text(
@@ -92,7 +103,7 @@ void getLocation() async {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "It's 🍦 time in $city!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
